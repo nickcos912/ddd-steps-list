@@ -1,12 +1,8 @@
-/**
- * Copyright 2025 nickcos912
- * @license Apache-2.0, see LICENSE for full text.
- */
+// Combined file for ddd-steps-list and ddd-steps-list-item
+// Author: nickcos912 | License: Apache-2.0
 import { LitElement, html, css } from "lit";
-import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
-import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
-import { LitElement, html, css } from 'https://unpkg.com/lit@2.6.1?module';
 
+// ddd-steps-list-item definition
 class DddStepsListItem extends LitElement {
   static get properties() {
     return {
@@ -69,9 +65,9 @@ class DddStepsListItem extends LitElement {
     `;
   }
 }
-
 customElements.define('ddd-steps-list-item', DddStepsListItem);
 
+// ddd-steps-list definition
 class DddStepsList extends LitElement {
   static get properties() {
     return {
@@ -136,7 +132,4 @@ class DddStepsList extends LitElement {
     }
   }
 }
-
 customElements.define('ddd-steps-list', DddStepsList);
-
-globalThis.customElements.define(DddStepsList.tag, DddStepsList);
