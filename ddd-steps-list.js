@@ -5,80 +5,138 @@
 import { LitElement, html, css } from "lit";
 import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
 import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
+import { LitElement, html, css } from 'https://unpkg.com/lit@2.6.1?module';
 
-/**
- * `ddd-steps-list`
- * 
- * @demo index.html
- * @element ddd-steps-list
- */
-export class DddStepsList extends DDDSuper(I18NMixin(LitElement)) {
-
-  static get tag() {
-    return "ddd-steps-list";
+class DddStepsListItem extends LitElement {
+  static get properties() {
+    return {
+      step: { type: Number, reflect: true }
+    };
   }
 
   constructor() {
     super();
-    this.title = "";
-    this.t = this.t || {};
-    this.t = {
-      ...this.t,
-      title: "Title",
+    this.step = 0;
+  }
+
+  static get styles() {
+    return css`
+      :host {
+        display: block;
+        margin-bottom: var(--ddd-spacing-6, 24px);
+      }
+
+      :host(:last-child) {
+        margin-bottom: 0;
+      }
+
+      .step-wrapper {
+        display: flex;
+        align-items: flex-start;
+      }
+
+      .step-circle {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1rem;
+        margin-right: var(--ddd-spacing-4, 16px);
+        background-color: #ddd;
+        color: #000;
+      }
+
+      :host([data-primary]) .step-circle {
+        background-color: var(--ddd-theme-default-beaverBlue, #1e407c);
+        color: #fff;
+      }
+
+      .step-content {
+        flex: 1;
+      }
+    `;
+  }
+
+  render() {
+    return html`
+      <div class="step-wrapper">
+        <div class="step-circle">${this.step}</div>
+        <div class="step-content"><slot></slot></div>
+      </div>
+    `;
+  }
+}
+
+customElements.define('ddd-steps-list-item', DddStepsListItem);
+
+class DddStepsList extends LitElement {
+  static get properties() {
+    return {
+      dddPrimary: { type: Boolean, attribute: 'ddd-primary', reflect: true }
     };
-    this.registerLocalization({
-      context: this,
-      localesPath:
-        new URL("./locales/ddd-steps-list.ar.json", import.meta.url).href +
-        "/../",
-      locales: ["ar", "es", "hi", "zh"],
+  }
+
+  constructor() {
+    super();
+    this.dddPrimary = false;
+  }
+
+  static get styles() {
+    return css`
+      :host {
+        display: block;
+      }
+    `;
+  }
+
+  render() {
+    return html`<slot @slotchange="${this._onSlotChange}"></slot>`;
+  }
+
+  firstUpdated() {
+    this._validateChildren();
+  }
+
+  _onSlotChange() {
+    this._validateChildren();
+  }
+
+  _validateChildren() {
+    const children = Array.from(this.children);
+    let stepCount = 0;
+    children.forEach(child => {
+      const tag = child.tagName.toLowerCase();
+      if (tag !== 'ddd-steps-list-item') {
+        this.removeChild(child);
+      } else {
+        stepCount++;
+        child.step = stepCount;
+        if (this.dddPrimary) {
+          child.setAttribute('data-primary', '');
+        } else {
+          child.removeAttribute('data-primary');
+        }
+      }
     });
   }
 
-  // Lit reactive properties
-  static get properties() {
-    return {
-      ...super.properties,
-      title: { type: String },
-    };
-  }
-
-  // Lit scoped styles
-  static get styles() {
-    return [super.styles,
-    css`
-      :host {
-        display: block;
-        color: var(--ddd-theme-primary);
-        background-color: var(--ddd-theme-accent);
-        font-family: var(--ddd-font-navigation);
-      }
-      .wrapper {
-        margin: var(--ddd-spacing-2);
-        padding: var(--ddd-spacing-4);
-      }
-      h3 span {
-        font-size: var(--ddd-steps-list-label-font-size, var(--ddd-font-size-s));
-      }
-    `];
-  }
-
-  // Lit render the HTML
-  render() {
-    return html`
-<div class="wrapper">
-  <h3><span>${this.t.title}:</span> ${this.title}</h3>
-  <slot></slot>
-</div>`;
-  }
-
-  /**
-   * haxProperties integration via file reference
-   */
-  static get haxProperties() {
-    return new URL(`./lib/${this.tag}.haxProperties.json`, import.meta.url)
-      .href;
+  updated(changedProps) {
+    if (changedProps.has('dddPrimary')) {
+      const items = this.querySelectorAll('ddd-steps-list-item');
+      items.forEach(item => {
+        if (this.dddPrimary) {
+          item.setAttribute('data-primary', '');
+        } else {
+          item.removeAttribute('data-primary');
+        }
+      });
+    }
   }
 }
+
+customElements.define('ddd-steps-list', DddStepsList);
 
 globalThis.customElements.define(DddStepsList.tag, DddStepsList);
