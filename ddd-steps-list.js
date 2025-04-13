@@ -22,7 +22,6 @@ class DddStepsListItem extends LitElement {
       :host {
         display: block;
         margin-bottom: var(--ddd-spacing-6, 24px);
-        color: var(--ddd-color-bodyText, #333);
       }
 
       :host(:last-child) {
@@ -32,6 +31,7 @@ class DddStepsListItem extends LitElement {
       .step-wrapper {
         display: flex;
         align-items: flex-start;
+        color: inherit;
       }
 
       .step-circle {
@@ -45,7 +45,7 @@ class DddStepsListItem extends LitElement {
         font-size: var(--ddd-font-size-md, 1rem);
         margin-right: var(--ddd-spacing-4, 16px);
         background-color: var(--ddd-color-secondary, #ddd);
-        color: var(--ddd-color-text, #000);
+        color: var(--ddd-theme-default-beaverBlue, #1e407c);
       }
 
       :host([ddd-primary]) .step-circle {
@@ -55,7 +55,7 @@ class DddStepsListItem extends LitElement {
 
       .step-content {
         flex: 1;
-        color: var(--ddd-color-bodyText, #333);
+        color: inherit;
       }
 
       @media (max-width: 768px) {
@@ -101,7 +101,7 @@ class DddStepsList extends LitElement {
         display: block;
         padding: var(--ddd-spacing-4, 16px);
         box-sizing: border-box;
-        color: var(--ddd-color-bodyText, #333);
+        color: var(--ddd-theme-default-beaverBlue, #1e407c);
       }
     `;
   }
