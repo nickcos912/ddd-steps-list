@@ -19,7 +19,9 @@ class DddStepsListItem extends LitElement {
     return css`
       :host {
         display: block;
-        margin-bottom: var(--ddd-spacing-6, 24px);
+        margin-bottom: var(--ddd-spacing-6);
+        padding-left: var(--ddd-spacing-10);
+        position: relative;
       }
 
       :host(:last-child) {
@@ -29,29 +31,46 @@ class DddStepsListItem extends LitElement {
       .step-wrapper {
         display: flex;
         align-items: flex-start;
+        gap: var(--ddd-spacing-4);
       }
 
       .step-circle {
-        width: 2rem;
-        height: 2rem;
-        border-radius: 50%;
+        width: var(--ddd-spacing-8);
+        height: var(--ddd-spacing-8);
+        border-radius: var(--ddd-radius-full);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: bold;
-        font-size: 1rem;
-        margin-right: var(--ddd-spacing-4, 16px);
-        background-color: #ddd;
-        color: #000;
-      }
-
-      :host([data-primary]) .step-circle {
-        background-color: var(--ddd-theme-default-beaverBlue, #1e407c);
-        color: #fff;
+        font-weight: var(--ddd-font-weight-bold);
+        font-size: var(--ddd-font-size-md);
+        background-color: var(--ddd-theme-default-beaverBlue);
+        color: var(--ddd-theme-default-white);
+        position: absolute;
+        left: 0;
+        top: 0.25rem;
       }
 
       .step-content {
         flex: 1;
+        min-width: 0;
+      }
+
+      @media (max-width: 768px) {
+        :host {
+          padding-left: var(--ddd-spacing-8);
+        }
+
+        .step-wrapper {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .step-circle {
+          position: relative;
+          top: 0;
+          left: 0;
+          margin-bottom: var(--ddd-spacing-2);
+        }
       }
     `;
   }
@@ -84,6 +103,8 @@ class DddStepsList extends LitElement {
     return css`
       :host {
         display: block;
+        padding: var(--ddd-spacing-4);
+        box-sizing: border-box;
       }
     `;
   }
