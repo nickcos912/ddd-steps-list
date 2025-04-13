@@ -137,7 +137,7 @@ class DddStepsList extends LitElement {
       const items = this.querySelectorAll('ddd-steps-list-item');
       items.forEach(item => {
         if (this.dddPrimary) {
-          item.setAttribute('data-primary', '');
+          item.dddPrimary = this.dddPrimary;
         } else {
           item.removeAttribute('data-primary');
         }
