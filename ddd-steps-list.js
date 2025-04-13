@@ -44,8 +44,8 @@ class DddStepsListItem extends LitElement {
         font-weight: var(--ddd-font-weight-bold, bold);
         font-size: var(--ddd-font-size-md, 1rem);
         margin-right: var(--ddd-spacing-4, 16px);
-        background-color: var(--ddd-color-secondary, #ddd);
-        color: var(--ddd-theme-default-beaverBlue, #1e407c);
+        background-color: var(--ddd-theme-default-beaverBlue, #1e407c);
+        color: var(--ddd-theme-default-white, #fff);
       }
 
       :host([ddd-primary]) .step-circle {
