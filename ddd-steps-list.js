@@ -29,21 +29,20 @@ class DddStepsListItem extends LitElement {
       .step-wrapper {
         display: flex;
         align-items: flex-start;
-        flex-direction: row;
         gap: var(--ddd-spacing-4);
       }
 
       .step-circle {
         width: var(--ddd-spacing-8);
         height: var(--ddd-spacing-8);
-        border-radius: var(--ddd-radius-full);
+        border-radius: var(--ddd-radius-full, 9999px);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: var(--ddd-font-weight-bold);
-        font-size: var(--ddd-font-size-md);
-        background-color: var(--ddd-color-secondary);
-        color: var(--ddd-color-text);
+        font-weight: var(--ddd-font-weight-bold, bold);
+        font-size: var(--ddd-font-size-md, 1rem);
+        background-color: var(--ddd-color-secondary, #ddd);
+        color: var(--ddd-color-text, #000);
         flex-shrink: 0;
       }
 
@@ -57,7 +56,7 @@ class DddStepsListItem extends LitElement {
         min-width: 0;
       }
 
-      @media (max-width: 600px) {
+      @media (max-width: 768px) {
         .step-wrapper {
           flex-direction: column;
           align-items: flex-start;
@@ -81,6 +80,7 @@ class DddStepsListItem extends LitElement {
 }
 customElements.define('ddd-steps-list-item', DddStepsListItem);
 
+// ddd-steps-list definition
 class DddStepsList extends LitElement {
   static get properties() {
     return {
@@ -119,7 +119,10 @@ class DddStepsList extends LitElement {
     const children = Array.from(this.children);
     let stepCount = 0;
     children.forEach(child => {
-      if (child.tagName.toLowerCase() === 'ddd-steps-list-item') {
+      const tag = child.tagName.toLowerCase();
+      if (tag !== 'ddd-steps-list-item') {
+        this.removeChild(child);
+      } else {
         stepCount++;
         child.step = stepCount;
         if (this.dddPrimary) {
@@ -127,8 +130,6 @@ class DddStepsList extends LitElement {
         } else {
           child.removeAttribute('data-primary');
         }
-      } else {
-        this.removeChild(child);
       }
     });
   }
@@ -138,7 +139,7 @@ class DddStepsList extends LitElement {
       const items = this.querySelectorAll('ddd-steps-list-item');
       items.forEach(item => {
         if (this.dddPrimary) {
-          item.dddPrimary = this.dddPrimary;
+          item.setAttribute('data-primary', '');
         } else {
           item.removeAttribute('data-primary');
         }
