@@ -22,6 +22,7 @@ class DddStepsListItem extends LitElement {
       :host {
         display: block;
         margin-bottom: var(--ddd-spacing-6, 24px);
+        color: var(--ddd-color-bodyText, #333);
       }
 
       :host(:last-child) {
@@ -54,6 +55,7 @@ class DddStepsListItem extends LitElement {
 
       .step-content {
         flex: 1;
+        color: var(--ddd-color-bodyText, #333);
       }
 
       @media (max-width: 768px) {
@@ -99,6 +101,7 @@ class DddStepsList extends LitElement {
         display: block;
         padding: var(--ddd-spacing-4, 16px);
         box-sizing: border-box;
+        color: var(--ddd-color-bodyText, #333);
       }
     `;
   }
