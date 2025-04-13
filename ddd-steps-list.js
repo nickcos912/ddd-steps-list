@@ -6,13 +6,15 @@ import { LitElement, html, css } from "lit";
 class DddStepsListItem extends LitElement {
   static get properties() {
     return {
-      step: { type: Number, reflect: true }
+      step: { type: Number, reflect: true },
+      dddPrimary: { type: Boolean, reflect: true }
     };
   }
 
   constructor() {
     super();
     this.step = 0;
+    this.dddPrimary = false;
   }
 
   static get styles() {
@@ -45,7 +47,7 @@ class DddStepsListItem extends LitElement {
         color: var(--ddd-color-text, #000);
       }
 
-      :host([data-primary]) .step-circle {
+      :host([ddd-primary]) .step-circle {
         background-color: var(--ddd-theme-default-beaverBlue, #1e407c);
         color: var(--ddd-theme-default-white, #fff);
       }
@@ -123,11 +125,7 @@ class DddStepsList extends LitElement {
       } else {
         stepCount++;
         child.step = stepCount;
-        if (this.dddPrimary) {
-          child.setAttribute('data-primary', '');
-        } else {
-          child.removeAttribute('data-primary');
-        }
+        child.dddPrimary = this.dddPrimary;
       }
     });
   }
@@ -136,11 +134,7 @@ class DddStepsList extends LitElement {
     if (changedProps.has('dddPrimary')) {
       const items = this.querySelectorAll('ddd-steps-list-item');
       items.forEach(item => {
-        if (this.dddPrimary) {
-          item.dddPrimary = this.dddPrimary;
-        } else {
-          item.removeAttribute('data-primary');
-        }
+        item.dddPrimary = this.dddPrimary;
       });
     }
   }
