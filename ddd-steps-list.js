@@ -32,22 +32,22 @@ class DddStepsListItem extends LitElement {
       }
 
       .step-circle {
-        width: 2rem;
-        height: 2rem;
-        border-radius: 50%;
+        width: var(--ddd-spacing-8, 32px);
+        height: var(--ddd-spacing-8, 32px);
+        border-radius: var(--ddd-radius-full, 9999px);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: bold;
-        font-size: 1rem;
+        font-weight: var(--ddd-font-weight-bold, bold);
+        font-size: var(--ddd-font-size-md, 1rem);
         margin-right: var(--ddd-spacing-4, 16px);
-        background-color: #ddd;
-        color: #000;
+        background-color: var(--ddd-color-secondary, #ddd);
+        color: var(--ddd-color-text, #000);
       }
 
       :host([data-primary]) .step-circle {
         background-color: var(--ddd-theme-default-beaverBlue, #1e407c);
-        color: #fff;
+        color: var(--ddd-theme-default-white, #fff);
       }
 
       .step-content {
