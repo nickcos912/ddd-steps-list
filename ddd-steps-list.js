@@ -19,11 +19,28 @@ class DddStepsListItem extends LitElement {
     return css`
       :host {
         display: block;
-        margin-bottom: var(--ddd-spacing-6);
+        padding-left: var(--ddd-spacing-8);
+        position: relative;
+        margin-bottom: var(--ddd-spacing-10);
       }
 
       :host(:last-child) {
         margin-bottom: 0;
+      }
+
+      .timeline-line {
+        position: absolute;
+        top: 0;
+        left: var(--ddd-spacing-4);
+        bottom: 0;
+        width: 2px;
+        background-image: repeating-linear-gradient(
+          to bottom,
+          var(--ddd-border-color, #ccc),
+          var(--ddd-border-color, #ccc) 4px,
+          transparent 4px,
+          transparent 8px
+        );
       }
 
       .step-wrapper {
@@ -35,20 +52,17 @@ class DddStepsListItem extends LitElement {
       .step-circle {
         width: var(--ddd-spacing-8);
         height: var(--ddd-spacing-8);
-        border-radius: var(--ddd-radius-full, 9999px);
+        border-radius: var(--ddd-radius-full);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: var(--ddd-font-weight-bold, bold);
-        font-size: var(--ddd-font-size-md, 1rem);
-        background-color: var(--ddd-color-secondary, #ddd);
-        color: var(--ddd-color-text, #000);
-        flex-shrink: 0;
-      }
-
-      :host([data-primary]) .step-circle {
+        font-weight: var(--ddd-font-weight-bold);
+        font-size: var(--ddd-font-size-md);
         background-color: var(--ddd-theme-default-beaverBlue);
         color: var(--ddd-theme-default-white);
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
       }
 
       .step-content {
@@ -57,6 +71,10 @@ class DddStepsListItem extends LitElement {
       }
 
       @media (max-width: 768px) {
+        :host {
+          padding-left: var(--ddd-spacing-6);
+        }
+
         .step-wrapper {
           flex-direction: column;
           align-items: flex-start;
@@ -71,6 +89,7 @@ class DddStepsListItem extends LitElement {
 
   render() {
     return html`
+      <div class="timeline-line"></div>
       <div class="step-wrapper">
         <div class="step-circle">${this.step}</div>
         <div class="step-content"><slot></slot></div>
