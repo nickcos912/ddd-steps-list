@@ -19,77 +19,45 @@ class DddStepsListItem extends LitElement {
     return css`
       :host {
         display: block;
-        padding-left: var(--ddd-spacing-8);
-        position: relative;
-        margin-bottom: var(--ddd-spacing-10);
+        margin-bottom: var(--ddd-spacing-6, 24px);
       }
 
       :host(:last-child) {
         margin-bottom: 0;
       }
 
-      .timeline-line {
-        position: absolute;
-        top: 0;
-        left: var(--ddd-spacing-4);
-        bottom: 0;
-        width: 2px;
-        background-image: repeating-linear-gradient(
-          to bottom,
-          var(--ddd-border-color, #ccc),
-          var(--ddd-border-color, #ccc) 4px,
-          transparent 4px,
-          transparent 8px
-        );
-      }
-
       .step-wrapper {
         display: flex;
         align-items: flex-start;
-        gap: var(--ddd-spacing-4);
       }
 
       .step-circle {
-        width: var(--ddd-spacing-8);
-        height: var(--ddd-spacing-8);
-        border-radius: var(--ddd-radius-full);
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-weight: var(--ddd-font-weight-bold);
-        font-size: var(--ddd-font-size-md);
-        background-color: var(--ddd-theme-default-beaverBlue);
-        color: var(--ddd-theme-default-white);
-        flex-shrink: 0;
-        position: relative;
-        z-index: 1;
+        font-weight: bold;
+        font-size: 1rem;
+        margin-right: var(--ddd-spacing-4, 16px);
+        background-color: #ddd;
+        color: #000;
+      }
+
+      :host([data-primary]) .step-circle {
+        background-color: var(--ddd-theme-default-beaverBlue, #1e407c);
+        color: #fff;
       }
 
       .step-content {
         flex: 1;
-        min-width: 0;
-      }
-
-      @media (max-width: 768px) {
-        :host {
-          padding-left: var(--ddd-spacing-6);
-        }
-
-        .step-wrapper {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .step-circle {
-          margin-bottom: var(--ddd-spacing-2);
-        }
       }
     `;
   }
 
   render() {
     return html`
-      <div class="timeline-line"></div>
       <div class="step-wrapper">
         <div class="step-circle">${this.step}</div>
         <div class="step-content"><slot></slot></div>
@@ -116,8 +84,6 @@ class DddStepsList extends LitElement {
     return css`
       :host {
         display: block;
-        padding: var(--ddd-spacing-4);
-        box-sizing: border-box;
       }
     `;
   }
